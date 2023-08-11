@@ -2,7 +2,6 @@ version: "3"
 services:
   db:
     build: ./db
-    container_name: katekyo-db
     restart: always
     environment:
       POSTGRES_DB: katekyo-db
@@ -10,7 +9,7 @@ services:
       POSTGRES_PASSWORD: dev_sample
       PGDATA: /var/lib/postgresql/data/pgdata
     ports:
-      - 5000:5432
+      - 5432:5432
     volumes:
       - ./db/data:/var/lib/postgresql/data
       - ./db/init:/docker-entrypoint-initdb.d
@@ -21,6 +20,8 @@ services:
       - ./back:/home/node/app/
       - ./.env:/home/node/app/.env
     ports:
+      # prisma studio
+      - 5555:5555
       - 8000:8000
     command: sh -c "npm run start:dev"
     depends_on:

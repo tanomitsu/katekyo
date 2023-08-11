@@ -1,1 +1,1 @@
-CREATE DATABASE main_db;
+CREATE DATABASE "katekyo-db";
