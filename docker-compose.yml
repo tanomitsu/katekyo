@@ -1,16 +1,27 @@
 version: "3"
 services:
-    db:
-        build: ./db
-        container_name: katekyo-db
-        restart: always
-        environment:
-            POSTGRES_DB: katekyo-db
-            POSTGRES_USER: admin
-            POSTGRES_PASSWORD: dev_sample
-            PGDATA: /var/lib/postgresql/data/pgdata
-        ports:
-            - 5000:5432
-        volumes:
-            - ./db/data:/var/lib/postgresql/data
-            - ./db/init:/docker-entrypoint-initdb.d
+  db:
+    build: ./db
+    container_name: katekyo-db
+    restart: always
+    environment:
+      POSTGRES_DB: katekyo-db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: dev_sample
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - 5000:5432
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+  back:
+    build: ./back
+    tty: true
+    volumes:
+      - ./back:/home/node/app/
+      - ./.env:/home/node/app/.env
+    ports:
+      - 8000:8000
+    command: sh -c "npm run start:dev"
+    depends_on:
+      - db

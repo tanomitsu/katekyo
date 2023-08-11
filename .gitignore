@@ -41,3 +41,4 @@ test/*.js
 
 # ENV file
 .env
+back/src/generated/**
