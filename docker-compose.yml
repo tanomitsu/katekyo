@@ -23,6 +23,14 @@ services:
       # prisma studio
       - 5555:5555
       - 8000:8000
-    command: sh -c "npm run start:dev"
+    command: sh -c "yarn run start:dev"
     depends_on:
       - db
+  front:
+    build: ./front
+    tty: true
+    volumes:
+      - ./front:/home/node/app/
+    ports:
+      - 3000:3000
+    command: sh -c "yarn run dev"

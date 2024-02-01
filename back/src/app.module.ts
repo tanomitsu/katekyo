@@ -6,6 +6,7 @@ import { GraphQLModule } from '@nestjs/graphql'
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { join } from 'path'
 import { UsersModule } from './modules/users/users.module'
+import { PostsModule } from './modules/posts/posts.module'
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { UsersModule } from './modules/users/users.module'
       autoSchemaFile: join(process.cwd(), 'src/generated/schema.gql'),
       sortSchema: true,
       // To limit this scan to only a subset of modules
-      include: [UsersModule],
+      include: [PostsModule, UsersModule],
     }),
     PrismaModule.forRoot({ isGlobal: true }),
     UsersModule,

@@ -12,18 +12,15 @@ datasource db {
 }
 
 model User {
-  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  Post Post[]
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
 
   @@map("users")
 }
 
 model Post {
-  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title    String
-  content  String
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId String @db.Uuid
+  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title   String
+  content String
 
   @@map("posts")
 }

@@ -6,7 +6,7 @@ import { User } from './entities/user.entity'
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Query(() => User, { name: 'user' })
+  @Query(() => User, { name: 'users' })
   findOne(@Args('id', { type: () => String }) id: string) {
     return this.usersService.user({
       id,

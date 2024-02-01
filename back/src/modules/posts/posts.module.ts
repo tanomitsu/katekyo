@@ -1,0 +1,10 @@
+import { Module } from '@nestjs/common'
+import { PostsResolver } from './posts.resolver'
+import { PostsService } from './posts.service'
+import { PrismaModule } from 'nestjs-prisma'
+
+@Module({
+  imports: [PrismaModule],
+  providers: [PostsResolver, PostsService],
+})
+export class PostsModule {}
