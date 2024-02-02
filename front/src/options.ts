@@ -15,7 +15,7 @@ export const options: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
-      name: "Sing In",
+      name: "Email",
       credentials: {
         email: {
           label: "Email",
@@ -26,6 +26,7 @@ export const options: NextAuthOptions = {
       },
       // メルアド認証処理
       async authorize(credentials) {
+        // TODO: メアド認証でバックエンドのユーザーを参照する
         const users = [
           { id: "1", email: "user1@example.com", password: "password1" },
           { id: "2", email: "user2@example.com", password: "password2" },
@@ -48,7 +49,7 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt: async ({ token, user, account, profile, isNewUser }) => {
+    jwt: async ({ token, user, account, profile }) => {
       // DEBUG: トークンを出力(プロダクションでは削除)
       console.log("in jwt", { user, token, account, profile })
 
@@ -72,6 +73,10 @@ export const options: NextAuthOptions = {
           role: token.role,
         },
       }
+    },
+    async redirect({ url, baseUrl }) {
+      // ユーザーがログインしている場合はposts/にリダイレクト
+      return url.startsWith(baseUrl) ? url : baseUrl + "/posts/"
     },
   },
 }

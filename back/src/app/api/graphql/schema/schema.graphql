@@ -1,0 +1,10 @@
+#import Post from "posts.graphql"
+
+type Query {
+  hello: String
+  posts: [Post]
+}
+
+type Mutation {
+  createPost(title: String!, content: String!): Post
+}

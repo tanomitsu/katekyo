@@ -1,15 +1,21 @@
-'use client'
+"use client"
 
-import { CacheProvider } from "@chakra-ui/next-js";
-import { ChakraProvider } from "@chakra-ui/react";
-import React from "react";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
+import { CacheProvider } from "@chakra-ui/next-js"
+import { ChakraProvider } from "@chakra-ui/react"
+import React from "react"
 
-export function Providers({children}: {children: React.ReactNode}) {
+const client = new ApolloClient({
+  uri: "https://flyby-router-demo.herokuapp.com/",
+  cache: new InMemoryCache(),
+})
+
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <CacheProvider>
-      <ChakraProvider>
-        {children}
-      </ChakraProvider>
-    </CacheProvider>
+    <ApolloProvider client={client}>
+      <CacheProvider>
+        <ChakraProvider>{children}</ChakraProvider>
+      </CacheProvider>
+    </ApolloProvider>
   )
 }
