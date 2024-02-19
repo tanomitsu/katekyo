@@ -2,7 +2,7 @@ version: "3"
 services:
   db:
     build: ./db
-    restart: always
+    # restart: always
     environment:
       POSTGRES_DB: katekyo-db
       POSTGRES_USER: admin

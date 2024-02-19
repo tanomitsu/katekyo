@@ -5,19 +5,22 @@ const prisma = new PrismaClient()
 
 export const resolvers: Resolvers = {
   Query: {
-    hello: () => "Hello World",
+    sayHello: () => "Hello, World!",
     posts: async (_, args, ___, ____) => {
       return await prisma.post.findMany()
     },
   },
   Mutation: {
     createPost: async (_, args) => {
-      return prisma.post.create({
+      const posts = prisma.post.create({
         data: {
           title: args.title,
           content: args.content,
         },
       })
+      // DEBUG
+      console.log(`posts: ${JSON.stringify(posts)}`)
+      return posts
     },
   },
   // ここにrelationのresolverを書く

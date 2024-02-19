@@ -1,0 +1,5 @@
+# fragment PostBase on Post {
+#   id
+#   title
+#   content
+# }
